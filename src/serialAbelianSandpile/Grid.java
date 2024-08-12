@@ -130,7 +130,7 @@ public class Grid {
         int g=0;//green
         int b=0;//blue
         int r=0;//red
-
+		System.out.println("grid2");
 		for( int i=0; i<rows; i++ ) {
 			for( int j=0; j<columns; j++ ) {
 			     g=0;//green
