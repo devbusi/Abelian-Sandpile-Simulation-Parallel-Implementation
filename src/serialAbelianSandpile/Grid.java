@@ -1,6 +1,6 @@
 //Copyright M.M.Kuttel 2024 CSC2002S, UCT
 package serialAbelianSandpile;
-
+import java.util.concurrent.ForkJoinPool;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -79,19 +79,24 @@ public class Grid {
 	
 	//key method to calculate the next update grod
 	boolean update() {
-		boolean change=false;
-		//do not update border
-		for( int i = 1; i<rows-1; i++ ) {
-			for( int j = 1; j<columns-1; j++ ) {
-				updateGrid[i][j] = (grid[i][j] % 4) + 
-						(grid[i-1][j] / 4) +
-						grid[i+1][j] / 4 +
-						grid[i][j-1] / 4 + 
-						grid[i][j+1] / 4;
-				if (grid[i][j]!=updateGrid[i][j]) {  
-					change=true;
-				}
-		}} //end nested for
+
+		ForkJoinPool pool = ForkJoinPool.commonPool();
+
+		boolean change = false;
+		change = pool.invoke(new UpdateTask(grid,updateGrid,1,rows-1,1,columns-1));
+
+		// /do not update border
+		// for( int i = 1; i<rows-1; i++ ) {
+		// 	for( int j = 1; j<columns-1; j++ ) {
+		// 		updateGrid[i][j] = (grid[i][j] % 4) + 
+		// 				(grid[i-1][j] / 4) +
+		// 				grid[i+1][j] / 4 +
+		// 				grid[i][j-1] / 4 + 
+		// 				grid[i][j+1] / 4;
+		// 		if (grid[i][j]!=updateGrid[i][j]) {  
+		// 			change=true;
+		// 		}
+		// }} //end nested for
 	if (change) { nextTimeStep();}
 	return change;
 	}
@@ -130,7 +135,7 @@ public class Grid {
         int g=0;//green
         int b=0;//blue
         int r=0;//red
-		System.out.println("grid2");
+
 		for( int i=0; i<rows; i++ ) {
 			for( int j=0; j<columns; j++ ) {
 			     g=0;//green

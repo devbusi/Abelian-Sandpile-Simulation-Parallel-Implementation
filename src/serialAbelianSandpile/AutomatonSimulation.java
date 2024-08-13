@@ -56,7 +56,7 @@ class AutomatonSimulation{
 	 
     public static void main(String[] args) throws IOException  {
 
-    	Grid2 simulationGrid;  //the cellular automaton grid
+    	Grid simulationGrid;  //the cellular automaton grid
     	  	
     	if (args.length!=2) {   //input is the name of the input and output files
     		System.out.println("Incorrect number of command line arguments provided.");   	
@@ -67,7 +67,7 @@ class AutomatonSimulation{
 		String outputFileName=args[1]; // output file name
     
     	// Read from input .csv file
-    	simulationGrid = new Grid2(readArrayFromCSV(inputFileName));
+    	simulationGrid = new Grid(readArrayFromCSV(inputFileName));
     	
     	//for debugging - hardcoded re-initialisation options
     	//simulationGrid.set(rows/2,columns/2,rows*columns*2);
