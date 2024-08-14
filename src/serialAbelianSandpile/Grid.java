@@ -70,6 +70,7 @@ public class Grid {
 
 	//for the next timestep - copy updateGrid into grid
 	public void nextTimeStep() {
+		
 		for(int i=1; i<rows-1; i++ ) {
 			for( int j=1; j<columns-1; j++ ) {
 				this.grid[i][j]=updateGrid[i][j];
